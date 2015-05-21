@@ -1,9 +1,0 @@
-{
-  "name": "PlotaPlot",
-  "version": "0.0.1",
-  "main": "public/plotaplot.js",
-  "dependencies": {
-    "jquery": "~2.1.3"
-  },
-  "overrides": {}
-}

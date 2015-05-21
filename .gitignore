@@ -1,7 +1,5 @@
 .idea
-db.sqlite3
 *.pyc
-*/bower_components/
-*/node_modules/
-interface/scripts/bower_components/
-interface/scripts/node_modules/
+client/bower_components/
+client/node_modules/
+client/public/
