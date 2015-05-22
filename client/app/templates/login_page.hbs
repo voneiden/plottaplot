@@ -1,0 +1,14 @@
+
+<div id="container" class="flex flex-center">
+    <div class="box text-center">
+        <h3>Login</h3>
+        {{# if error }}
+        <div>Error: {{error}}</div>
+        {{/if}}
+        Username <input id="user" type="text" tabindex="1"><br>
+        Password <input id="pass" type="password" tabindex="2"><br><br>
+        <div class="text-right">
+            <button id="register">Register</button><button id="login" tabindex="3">Login</button>
+        </div>
+    </div>
+</div>

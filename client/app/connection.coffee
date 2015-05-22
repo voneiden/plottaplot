@@ -1,14 +1,20 @@
 connection = null;
 ready = false
 plottaplot = require("plottaplot")
+login = require("login")
+callbacks = []
 
 on_open = () ->
   ready = true
-  plottaplot.show_error("We are connected!")
+  login.show_login()
   console.log("Connected")
 
-on_event = () ->
-  console.log("Event")
+on_event = (event) ->
+  console.log("Event", event)
+  if callbacks.length > 0
+    callback = callbacks.shift()
+    console.log("callback", callback)
+    callback(JSON.parse(event.data))
 
 
 on_close = (event) ->
@@ -32,9 +38,14 @@ connect = ->
   connection.onopen = on_open
   connection.onclose = on_close
 
+send = (data, callback) ->
+  console.log("Connection", connection)
+  connection.send(JSON.stringify(data))
+  callbacks.push(callback)
 
 
 
 
 
 exports.connect = connect
+exports.send = send
