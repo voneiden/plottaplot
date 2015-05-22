@@ -1,7 +1,35 @@
-.container {
-    border: 1px solid black;
+html, body {
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
 }
 
-.centered {
+#container {
+    min-height: 100%;
+}
+
+.flex {
+    display: flex;
+}
+.flex-center {
+    align-items: center;
+    justify-content: center;
+}
+
+.box {
+    border: 1px solid black;
+    padding: 1em;
+}
+
+.text-center {
     text-align: center;
+}
+
+.verticalmiddle {
+    vertical-align: middle;
+}
+
+.inlineblock {
+    display: inline-block;
+    padding: 1em;
 }
