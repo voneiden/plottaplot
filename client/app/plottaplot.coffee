@@ -1,11 +1,18 @@
-templates = {
+templates =
   error_page: require("templates/error_page"),
   login_page: require("templates/login_page"),
-  loading_page: require("templates/loading_page")
-}
+  loading_page: require("templates/loading_page"),
+  main: require("templates/main"),
+  autocomplete: require("templates/main/autocomplete")
 
 
+
+main = require("main")
 connection = require("connection")
+data =
+  being: [],
+  event: [],
+  place: []
 
 
 setup = ->
@@ -21,6 +28,8 @@ setup = ->
 
   # Establish connection
   connection.connect()
+
+  #main.show()
 
 show_loading = ->
   $('body').html(templates.loading_page())

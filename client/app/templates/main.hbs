@@ -1,0 +1,92 @@
+
+<div id="container" class="flex-horizontal">
+    <div class="flex-vertical">
+        <div class="box text-center">
+            <div id="main-input">
+                <!--autocomplete-->
+                 <input class="typeahead" type="text" placeholder="How hard can it be?">
+            </div>
+        </div>
+        <div id="stuff">
+            {{{stuff}}}
+        </div>
+    </div>
+
+</div>
+
+<script>
+    /*
+    var name = "Sir John Lennon";
+    var testbeing = {name: name};
+    testbeing.from = "Shire";
+    testbeing.pk = 13;
+    var input = document.getElementById("myinput");
+    */
+    /*
+    var bh_beings = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.whitespace,
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        local: [testbeing, "one", "two", "three"]
+    });
+
+    var bh_places = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.whitespace,
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        local: []
+    });
+
+    var bh_events = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.whitespace,
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        local: []
+    });
+
+    var bh_commands = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.whitespace,
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        local: []
+    });
+    */
+    var plottaplot = require("plottaplot");
+    var autocomplete = require("autocomplete")
+
+    function fuck(q, s) { s([{pk:1, name:"Sir John", home:"Salisbury"},
+        {pk:2, name:"Sir Rogar", home:"Barbaria"},
+        {pk:3, name:"Sir John", home:"England"}])}
+    var typeahead = $('.typeahead');
+    typeahead.typeahead({
+                hint: true,
+                highlight: true,
+                minLength: 1
+            },
+            {
+                name: 'Beings',
+                source: autocomplete.beings,
+                display: "name",
+                templates: {
+                    header: '<h3 class="league-name">Beings</h3>',
+                    suggestion: plottaplot.templates.autocomplete
+                }
+            },
+            {
+                name: 'Places',
+                source: autocomplete.places,
+                templates: {
+                    header: '<h3 class="league-name">Places</h3>'
+                }
+            },
+            {
+                name: 'Events',
+                source: autocomplete.events,
+                templates: {
+                    header: '<h3 class="league-name">Events</h3>'
+                }
+            });
+
+
+    var main = require("main");
+    typeahead.bind("typeahead:select", main.typeahead_select);
+    typeahead.bind("typeahead:autocomplete", main.typeahead_autocomplete);
+    typeahead.keypress(main.keypress);
+</script>
+

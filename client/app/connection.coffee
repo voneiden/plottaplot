@@ -13,12 +13,10 @@ on_event = (event) ->
   console.log("Event", event)
   if callbacks.length > 0
     callback = callbacks.shift()
-    console.log("callback", callback)
     callback(JSON.parse(event.data))
 
 
 on_close = (event) ->
-
   if event.code != 1000
     if !ready
       plottaplot.show_error("Blimey! Server is unreachable. Try again later.")
@@ -39,7 +37,7 @@ connect = ->
   connection.onclose = on_close
 
 send = (data, callback) ->
-  console.log("Connection", connection)
+  #console.log("Connection", connection)
   connection.send(JSON.stringify(data))
   callbacks.push(callback)
 
