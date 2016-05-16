@@ -116,7 +116,7 @@ class PlottaPlotProtocol(WebSocketServerProtocol):
 if __name__ == '__main__':
     import asyncio
 
-    factory = WebSocketServerFactory("ws://localhost:9000", debug=False)
+    factory = WebSocketServerFactory("ws://localhost:9000")
     factory.protocol = PlottaPlotProtocol
 
     loop = asyncio.get_event_loop()

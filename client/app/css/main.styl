@@ -1,0 +1,96 @@
+$theme-bg-lighest = rgba(139,176, 56,1)
+$theme-bg-lighter = rgba(208,233,155,1)
+$theme-bg-normal = rgba(171,204, 98,1)
+$theme-bg-darker = rgba(116,155, 30,1)
+$theme-bg-darkest =rgba( 92,131,  6,1)
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  font-family: "Marcellus", serif;
+}
+
+.wat {
+  font-color: $rgba-primary-0
+}
+
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+#root-col {
+  height: 100%;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+#top-row {
+  flex-basis: 100px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  background-color: $theme-bg-darker;
+}
+
+#bottom-row {
+  flex-grow: 1;
+  background-color: $theme-bg-normal;
+}
+#date-view {
+  flex-grow: 1;
+}
+
+#search-view {
+  flex-grow: 2;
+}
+
+#map-view {
+  background-color: purple;
+  flex-grow: 0;
+  flex-basis: 30px;
+  transition: flex-grow 0.5s;
+  -webkit-transition: flex-grow 0.5s;
+}
+
+#map-view-content {
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+#map-view-slider {
+  flex-basis: 30px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  background-color: $theme-bg-lighter;
+}
+
+
+
+#data-view {
+  flex-grow: 1;
+  padding-left: 1em;
+
+}
+#being-description-col {
+  flex-grow: 1;
+}
+
+#being-overview-col {
+  flex-grow: 1;
+
+}
+
+.superscript {
+
+}
+
+.clickable {
+  cursor: pointer;
+}

@@ -1,0 +1,41 @@
+include utils.jade
+
+.flex-col
+    .flex-row
+        h2
+            span.contenteditable(data-event-type="name")#being-name #{name}
+            = " "
+            sup.clickable.activate_edit(data-target="#being-name") [E]
+            sup.clickable.activate_new(data-target="#being-name") [N]
+    .flex-row
+        .flex-col#being-description-col
+            div #{description}
+            each event in events
+                - var summary = event.get_summary();
+                if summary
+                    div #{summary}
+
+        .flex-col#being-overview-col
+            - var is_alive = born <= current_date && died >= current_date
+            - var is_dead = died <= current_date
+            if is_alive
+                div#being-born Born #{date_to_pretty(born)} (#{date_diff(born)})
+                if died
+                    div#being-died Will die #{date_to_pretty(died)} (#{date_until(died)})
+            else if is_dead
+                div#being-born Born #{date_to_pretty(born)}
+                div#being-died Died #{date_to_pretty(died)} at the age of #{date_diff(died, born)}
+            else
+                div#being-born Will be born #{date_until(born)} on #{date_to_pretty(born)}
+                if died
+                    div#being-died Will die #{date_until(died)} on #{date_to_pretty(died)}
+
+            div#being-marital-status
+                span #{marital_status[0][0]}
+                    if marital_status[0][1]
+                        = " "
+                        | on #{date_to_pretty(marital_status[0][1].date)} with
+                        = " "
+                        + beinglink(marital_status[0][1].with_being)
+
+                        // #{marital_status[0][1].with_being.get_name()}

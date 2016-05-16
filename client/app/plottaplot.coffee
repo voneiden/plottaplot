@@ -4,6 +4,8 @@ templates =
   loading_page: require("templates/loading_page"),
   main: require("templates/main"),
   autocomplete: require("templates/main/autocomplete")
+  main_view: require("templates/main_view")
+  being: require("templates/being")
 
 
 
@@ -27,9 +29,9 @@ setup = ->
     return show_error("Your browser doesn't support websockets!")
 
   # Establish connection
-  connection.connect()
+  #connection.connect()
 
-  #main.show()
+  main.show()
 
 show_loading = ->
   $('body').html(templates.loading_page())

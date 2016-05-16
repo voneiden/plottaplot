@@ -2,6 +2,7 @@
   Sometimes you gotta do it yourself
 ###
 plottaplot = require("plottaplot")
+data = require("data")
 
 
 b1 =
@@ -39,14 +40,18 @@ being_sorter = (a, b) ->
 beings = (query, callback) ->
   regex = new RegExp(query)
   results = []
-  for being in objects.beings
-    if regex.test(being.name)
+  console.log("beings", data.beings)
+  for being_id, being of data.beings
+
+    console.log(being.get_name())
+    if regex.test(being.get_name())
       results.push(being)
 
     else if being.home? and regex.test(being.home)
       results.push(being)
 
   results.sort(being_sorter)
+  console.log("Got results", results)
   callback(results)
 
 places = (query, callback) ->
