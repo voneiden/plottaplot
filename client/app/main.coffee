@@ -100,11 +100,11 @@ models = require("models")
 events = require("events")
 
 John = new models.Being({})
-birth_of_John = new events.BirthEvent({date: "0485-12-11", father: null, mother: null, place: null})
-name_of_John = new events.NameEvent({date: "0485-12-25", name: "John Johnson"})
-description_of_John = new events.DescriptionEvent({date: "0485-12-11", description: "John was born, pale as snow", diff_from: ""})
-description_of_John2 = new events.DescriptionEvent({date: "0490-12-11", description: "John was born in December, pale as snow. He seemed to grow as a strong young lad.", diff_from: "John was born, pale as snow"})
-death_of_John = new events.DeathEvent({date: "0560-10-10", place: null})
+birth_of_John = new events.BirthEvent({who: John, date: new Date("0485-12-11"), father: null, mother: null, place: null})
+name_of_John = new events.NameEvent({what: John, date: new Date("0485-12-25"), name: "John Johnson"})
+description_of_John = new events.DescriptionEvent({what: John, date: new Date("0485-12-11"), new_description: "John was born, pale as snow", old_description: ""})
+description_of_John2 = new events.DescriptionEvent({what: John, date: new Date("0490-12-11"), new_description: "John was born in December, pale as snow. He seemed to grow as a strong young lad.", old_description: "John was born, pale as snow"})
+death_of_John = new events.DeathEvent({who: John, date: new Date("0560-10-10"), place: null})
 
 
 
@@ -116,14 +116,15 @@ John.add_event(name_of_John)
 
 
 Jane = new models.Being({})
-birth_of_Jane = new events.BirthEvent({date: "0486-12-11", father: null, mother: null, place: null})
-name_of_Jane = new events.NameEvent({date: "0487-01-25", name: "Jane"})
-marriage_of_Jane = new events.MarriageEvent({date: "0505-03-15", with_being: John})
-marriage_of_John = new events.MarriageEvent({date: "0505-03-15", with_being: Jane})
+birth_of_Jane = new events.BirthEvent({who: Jane, date: new Date("0486-12-11"), father: null, mother: null, place: null})
+name_of_Jane = new events.NameEvent({what: Jane, date:new Date( "0487-01-25"), name: "Jane"})
+marriage_of_Jane_and_John = new events.MarriageEvent({pair: [John, Jane], date: new Date("0505-03-15")})
+#marriage_of_Jane = new events.MarriageEvent({date: new Date("0505-03-15"), with_being: John})
+#marriage_of_John = new events.MarriageEvent({date:new Date( "0505-03-15"), with_being: Jane})
 Jane.add_event(birth_of_Jane)
-Jane.add_event(marriage_of_Jane)
+Jane.add_event(marriage_of_Jane_and_John)
 Jane.add_event(name_of_Jane)
-John.add_event(marriage_of_John)
+John.add_event(marriage_of_Jane_and_John)
 
 
 
@@ -133,7 +134,30 @@ console.log(data)
 data.beings[John.uid] = John
 data.beings[Jane.uid] = Jane
 
-console.log(JSON.stringify(data))
+serialijse.declarePersistable(models.Being)
+serialijse.declarePersistable(diff_match_patch.patch_obj)
+
+for event_name, event_class of events.event_types
+  console.log(event_class)
+  serialijse.declarePersistable(event_class)
+###
+serialijse.declarePersistable(events.DeathEvent)
+serialijse.declarePersistable(events.NameEvent)
+serialijse.declarePersistable(events.MarriageEvent)
+serialijse.declarePersistable(events.DescriptionEvent)
+###
+
+d=serialijse.serialize(data)
+console.log("Serialized:", d, d.length)
+
+
+scall = (error, data) ->
+  d2 = new TextDecoder().decode(data)
+  console.log("Zser",error,d2,d2.length)
+serialijse.serializeZ(data, scall)
+
+
+#console.log(JSON.stringify(data))
 
 # Setup typeahead
 autocomplete = require("autocomplete")

@@ -21,18 +21,12 @@ class Being
     @events.sort(events.event_sorter)
 
   get_name: (date) ->
-    name = "Unnamed baby"
-    for event in @events
-      if event.type != "name"
-        continue
-      else
-        name = event.name
-    return name
+    for event in @events by -1 when event instanceof events.NameEvent
+      return event.name
+    return "Unnamed baby"
 
   get_born: () ->
-    for event in @events
-      if event.type != "birth"
-        continue
+    for event in @events when event instanceof events.BirthEvent
       return event.date
     return false
 
@@ -46,13 +40,9 @@ class Being
 
   get_description: () ->
     description = ""
-    for event in @events
-      if event.date > data.current_date
-        break
-      if event.type != "description"
-        continue
+    for event in @events when event.date <= data.current_date and event instanceof events.DescriptionEvent
       description = event.get_description(description)
-    return description
+    return if !description.length then "No description" else description
 
   # Marriage can end in divorce or death
   get_marital_status: () ->
@@ -66,7 +56,28 @@ class Being
 
     return [status, history]
 
+  add_title: (place, position=Place.POSITIONS.ruler, date=data.current_date) ->
+    aquire_event = events.AcquireTitleEvent(place, position, date)
+    current_title_holder = place.get_current_title_holder(position, date)
+
+
+
+class Place
+  @POSITIONS = {
+    ruler: "ruler"
+  }
+
+  get_current_title_holder = (position, date=data.current_date) ->
+    if position not in Place.POSITIONS
+      throw "Undefined place title position!"
+    for event in @events
+      null
+      # TODO wut??
+      # Should all events define also who the event is happening to?
+
+
 
 
 
 exports.Being = Being
+exports.Place = Place

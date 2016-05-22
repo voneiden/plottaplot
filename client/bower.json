@@ -10,7 +10,12 @@
     "js-sha256": "0.3.0",
     "jsdiff": "2.2.2",
     "google-diff-match-patch-js": "1.0.0",
-    "moment": " 2.13.0"
+    "moment": " 2.13.0",
+    "serialijse":"0.0.17"
   },
-  "overrides": {}
+  "overrides": {
+    "serialijse": {
+      "main": "dist/serialijse.bundle.js"
+    }
+  }
 }
