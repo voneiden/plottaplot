@@ -35,9 +35,49 @@ render_being = (being) ->
     "date_diff": utils.date_diff,
   }))
 
-  $(".activate_edit").unbind().click(start_content_edit)
-  $(".activate_new").unbind().click(start_content_new)
+  #$(".activate_edit").unbind().click(start_content_edit)
+  #$(".activate_new").unbind().click(start_content_new)
+  new EditableComponent(being, $("#being-name"), false)
+  new EditableComponent(being, $("#being-description"), true)
 
   console.log("Description", being.get_description())
+
+
+###
+  Turns an element into editable
+###
+class EditableComponent
+  constructor: (@being, @element, @multiline) ->
+    if !@multiline?
+      @multiline = false
+    @editing = false
+    @element.addClass("editable-component")
+    @element.hover(@show_info, @hide_info)
+    @element.click({self: @}, @click)
+    @element.keypress({self: @}, @keypress)
+    @element.attr("contenteditable", true)
+
+  click: (event) ->
+    console.log("Click")
+
+  keypress: (event) ->
+    self = event.data.self
+    console.log("Keypress", event.which, event)
+    switch event.which
+      when 13
+        if !self.multiline or event.shiftKey
+          self.save()
+          event.preventDefault()
+          return false
+
+  save: () ->
+    @element.blur()
+
+
+  show_info: (event) ->
+    console.log("Show info")
+
+  hide_info: (event) ->
+    console.log("Hide info")
 
 exports.render_being = render_being

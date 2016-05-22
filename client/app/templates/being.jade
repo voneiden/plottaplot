@@ -9,7 +9,7 @@ include utils.jade
             sup.clickable.activate_new(data-target="#being-name") [N]
     .flex-row
         .flex-col#being-description-col
-            div #{description}
+            div#being-description #{description}
             each event in events
                 - var summary = event.get_summary();
                 if summary
